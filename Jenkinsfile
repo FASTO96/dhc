@@ -1,5 +1,5 @@
 pipeline {
-    environnement{
+    environment{
       apl = ""
     }
     agent {
