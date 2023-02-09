@@ -1,6 +1,6 @@
 pipeline {
     environment{
-      apl = ""
+      apl = "sab22/wapp:1.0.7"
     }
     agent {
         label 'myage'
@@ -15,7 +15,7 @@ pipeline {
         
         stage('build') {
             steps {
-                apl = docker.build("sab22/wapp:1.0.7")
+                 docker.build("sab22/wapp:1.0.7")
             }
         }        
 
