@@ -3,6 +3,17 @@ pipeline {
         label 'myage'
     }      
     stages{
+        
+        
+        stage('clone') {
+            steps {
+                checkout scm
+            }
+        }        
+        
+        
+        
+        
         stage('build') {
             steps {
                 dob = docker.build("sab22/wapp")
