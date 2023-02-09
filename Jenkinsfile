@@ -1,5 +1,7 @@
 pipeline {
-    def apl
+    environnement{
+      apl = ""
+    }
     agent {
         label 'myage'
     }
