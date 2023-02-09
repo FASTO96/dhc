@@ -2,7 +2,7 @@ pipeline {
     agent {
         label 'myage'
     }      
-        
+    stages{
         stage('build') {
             steps {
                 dob = docker.build("docker build -t sab22/wapp:1.0.2")
