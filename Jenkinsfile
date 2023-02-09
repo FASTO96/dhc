@@ -9,7 +9,7 @@ node {
 
     stage('Build image') {
   
-       dob = docker.build("sab22/wapp")
+       dob = docker.build("sab22/wapp:1.0.6")
     }
 
 
