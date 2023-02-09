@@ -1,24 +1,30 @@
-node {
-    def dob
-
-    stage('Clone repository') {
-      
-
-        checkout scm
+pipeline {
+    agent {
+        label 'myage'
     }
 
-    stage('Build image') {
-  
-       dob = docker.build("sab22/wapp:1.0.6")
-    }
-
-
-    stage('Push image') {
-        
-        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-            dob.push()
+    stages {
+        def apl
+        stage('clone') {
+            steps {
+                scm checkout
+            }
         }
-    }
-    
+        
+        stage('build') {
+            steps {
+                apl = docker.build("sab22/wapp:1.0.7")
+            }
+        }        
 
+        stage('push') {
+            steps {
+                docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                   apl.push()
+            }
+                
+            }
+        }        
+        
+    }
 }
