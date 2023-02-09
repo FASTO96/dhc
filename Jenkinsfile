@@ -1,34 +1,30 @@
-node {
-    def app
-
-    stage('Clone repository') {
-      
-
-        checkout scm
+pipeline {
+    agent {
+        label 'myage'
     }
-
-    stage('Build image') {
-  
-       app = docker.build("sab22/myweb")
+    environment
+    {
+        DOCKERHUBCREDENTIAL=credentials('dockerhub')
     }
-
-    stage('Test image') {
-  
-
-        app.inside {
-            sh 'echo "Tests passed"'
-        }
-    }
-
-    stage('Push image') {
         
-        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-            app.push("${env.BUILD_NUMBER}")
+        
+        stage('build') {
+            steps {
+                dob = docker.build("docker build -t sab22/wapp:1.0.2")
+            }
         }
+               
+        
+        stage('push') {
+            steps {
+                docker.withRegistry('https://registry.hub.docker.com', 'dockerhub'){
+                    dob.push()
+                    
+                }
+                
+            }
+        }        
+        
+        
     }
-    
-    stage('Trigger ManifestUpdate') {
-                echo "triggering updatemanifestjob"
-                build job: 'updatemanifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
-        }
 }
