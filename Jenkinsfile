@@ -1,12 +1,7 @@
 pipeline {
     agent {
         label 'myage'
-    }
-    environment
-    {
-        DOCKERHUBCREDENTIAL=credentials('dockerhub')
-    }
-        
+    }      
         
         stage('build') {
             steps {
