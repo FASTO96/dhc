@@ -1,6 +1,8 @@
 node {
     def dob
-
+    agent {
+        label 'myage'
+    }
     stage('Clone repository') {
       
 
