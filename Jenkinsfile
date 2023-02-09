@@ -1,11 +1,11 @@
 pipeline {
+    def apl
     agent {
         label 'myage'
     }
 
     stages {
-        def apl
-        stage('clone') {
+            stage('clone') {
             steps {
                 scm checkout
             }
