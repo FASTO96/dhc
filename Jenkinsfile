@@ -1,32 +1,24 @@
-pipeline {
-    environment{
-      apl = "sab22/wapp:1.0.7"
-    }
-    agent {
-        label 'myage'
-    }
+node {
+    def fap
 
-    stages {
-            stage('clone') {
+        stage('clone') {
             steps {
-                scm checkout
+                checkout scm
+            }
+        }
+        stage('build') {
+            steps {
+                fap = docker.build("sab22/wapp:1.0.7")
             }
         }
         
-        stage('build') {
-            steps {
-                 docker.build("sab22/wapp:1.0.7")
-            }
-        }        
-
         stage('push') {
             steps {
-                docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                   apl.push()
+                docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') 
+                {
+                    fap.push()
+                }
             }
-                
-            }
-        }        
-        
-    }
+        }
+
 }
