@@ -1,24 +1,24 @@
 node {
-    def fap
+    def dob
 
-        stage('clone') {
+    stage('Clone repository') {
+      
 
-                checkout scm
+        checkout scm
+    }
 
-        }
-        stage('build') {
+    stage('Build image') {
+  
+       dob = docker.build("sab22/wapp:1.0.6")
+    }
 
-                fap = docker.build("sab22/wapp:1.0.7")
 
-        }
+    stage('Push image') {
         
-        stage('push') {
-
-                docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') 
-                {
-                    fap.push()
-                }
-
+        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+            dob.push()
         }
+    }
+    
 
 }
