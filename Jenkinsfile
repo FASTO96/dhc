@@ -5,7 +5,7 @@ pipeline {
     stages{
         stage('build') {
             steps {
-                dob = docker.build("sab22/wapp:1.0.2")
+                dob = docker.build("sab22/wapp")
             }
         }
                
