@@ -18,7 +18,7 @@ node {
     stage('Push image') {
         
         docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-            echo $dob
+            echo dob
             dob.push()
         }
     }
