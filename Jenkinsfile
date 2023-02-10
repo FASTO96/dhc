@@ -11,13 +11,14 @@ node {
 
     stage('Build image') {
   
-       dob = docker.build("sab22/wapp:1.0.7")
+       dob = docker.build("sab22/wapp:1.0.8")
     }
 
 
     stage('Push image') {
         
         docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+            echo $dob
             dob.push()
         }
     }
